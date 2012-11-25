@@ -2,72 +2,47 @@
 #
 #   A simple script to help you get work done.
 #   
-#   install()
-#       Will set up GSD as a command-line shortcut
-#       and move the block file into place in /etc/
-#       as /etc/hosts.blocked
-#
 #   on()
+#       Turns on the blocking.
 #
 #   off()
+#       Turns off the blocking.
 #
 
-#
 #   Constants
 #
-
 HOSTS="etc/hosts"
 BLOCKED_HOSTS="etc/hosts.blocked"
 
 
-#
 #   Function
 #
-
-function install {
-    echo "Installing:"
-    echo "    Installing script in /usr/bin/bash..."
-    echo "    Copying block list to /etc/hosts.blocked..."
-    echo "Done."
-    exit
-}
-
 function on {
-    echo "on:"
+    echo "Turning on blocking..."
     exit
 }
 
 function off {
-    echo "off:"
+    echo "Turning off blocking..."
     exit
 }
 
 #   If called without arguments, exit.
-#if [ ! -e "$1" ]
-#then
-#    echo 
-#    echo "usage: gsd on      ... turns on blocking. 
-#       gsd off     ... turns off blocking.
-#       gsd install ... installs the block file and script."
-#   echo
-#   exit
-#fi
+if [ $# -ne 1 ]
+then
+    echo 
+    echo "usage: gsd on      ... turns on blocking. 
+       gsd off     ... turns off blocking."
+   echo
+   exit
+else
+    case $1 in
+        on)
+            on
+        ;;
 
-if [ $UID -ne 0 ]; then
-  echo "Use me with sudo!" >&2
-  exit 2
+        off)
+            off
+        ;;
+    esac   
 fi
-
-case $1 in
-    install)
-        install
-    ;;
-
-    on)
-        on
-    ;;
-
-    off)
-        off
-    ;;
-esac
