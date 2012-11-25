@@ -14,7 +14,7 @@ Download, then navigate to the downloaded folder using a terminal.
 
 Edit the `blocked_sites` file to add/remove time-suck websites.
 
-Run `sudo install_gsd`
+Run `sudo sh install_gsd`
 
 Super. Now run `sudo gsd on` to block those websites, and `sudo gsd off` to unblock them after you're done working.
 
