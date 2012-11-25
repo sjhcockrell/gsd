@@ -39,6 +39,9 @@ function on {
         fi
     done
 
+    # Flush the cache.
+    flush
+
     # Exit.
     exit
 }
