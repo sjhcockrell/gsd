@@ -20,13 +20,14 @@ blocked_hosts="/etc/hosts.blocked"
 #
 function on {
     echo
-    echo "It's time to GET SHIT DONE."
+    echo "It's time to get shit done(tm)."
     echo "    Blocking sites..."
 
     # Make a backup of hosts file, if DNE.
     if [ ! -e $hosts_backup ]; then
-        echo "    Making a backup of /etc/hosts/..."
+        echo "    Making a backup of /etc/hosts..."
         cp $hosts $hosts_backup
+        echo "    Backup file is /etc/hosts.backup."
     fi
 
     # Read from the array passed in, and add to /etc/hosts
@@ -35,7 +36,7 @@ function on {
         line="127.0.0.1 $site"
         grep $site $hosts > /dev/null; append=$?
         if [ $append == 1 ]; then
-            echo -e $line >> $hosts
+            echo $line >> $hosts
         fi
     done
 
@@ -43,12 +44,13 @@ function on {
     flush
 
     # Exit.
+    echo
     exit
 }
 
 function off {
     echo 
-    echo "Ok, relaxing times."
+    echo "Ok, time to relax."
     echo "    Unblocking sites..."
 
     # Read from the array, and remove files from /etc/hosts
@@ -60,6 +62,8 @@ function off {
     flush
     
     # And, done.
+    echo "   The internet is back in town."
+    echo 
     exit
 }
 
@@ -98,9 +102,6 @@ else
         fi
         blocked_sites+=($line)
     done < $blocked_hosts
-
-
-    echo $blocked_sites
 
     case $1 in
         on)
