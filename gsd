@@ -110,10 +110,10 @@ function hlp {
 #   If called without arguments, exit.
 if [ $# -ne 1 ]; then
     echo 
-    echo "usage: gsd on      ... turns on blocking. 
-       gsd off     ... turns off blocking."
-   echo
-   exit
+    echo "usage: gsd on      ... turns on blocking."
+    echo "       gsd off     ... turns off blocking."
+    echo
+    exit
 
 else
     # Find all blocked hosts
@@ -127,10 +127,10 @@ else
 
     # Read all lines from our $blocked_hosts file
     # Put into an array that we will pass to on() or off().
-    #   Ignore comments, obv.
+    #   Ignore comments and blank lines, obv.
     while read line; do
-        if [ $line == \#* ]
-        then
+        first_char=`echo $line | cut -c1-1`
+        if [ "$first_char" == "#" ];then
             continue
         fi
         blocked_sites+=($line)
