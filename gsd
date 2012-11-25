@@ -20,7 +20,7 @@ blocked_hosts="/etc/hosts.blocked"
 #
 function on {
     echo
-    echo "It's time to get shit done(tm)."
+    echo "It's time to Get Shit Done(tm)."
     echo "    Blocking sites..."
 
     # Make a backup of hosts file, if DNE.
@@ -62,7 +62,7 @@ function off {
     flush
     
     # And, done.
-    echo "   The internet is back in town."
+    echo "    The internet is back in town."
     echo 
     exit
 }
