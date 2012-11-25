@@ -1,16 +1,27 @@
 #!/bin/bash
 #
+#   gsd
 #   A simple script to help you get work done.
 #   
-#   on()
+#   
+#   on
 #       Turns on the blocking.
 #
-#   off()
+#   off
 #       Turns off the blocking.
 #
+#   version, -v
+#       Prints the version number.
+#
+#   help, -h
+#       Prints some instructions.
 
 #   Constants
 #
+
+VERSION=0.1
+
+
 hosts="/etc/hosts"
 hosts_backup="/etc/hosts.backup"
 blocked_hosts="/etc/hosts.blocked"
@@ -74,6 +85,28 @@ function flush {
     fi
 }
 
+function version {
+    echo "gsd, v$VERSION"
+    exit
+}
+
+function hlp {
+    echo
+    echo "gsd, the get shit done script"
+    echo 
+    echo "on"
+    echo "    Blocks a list of sites by modifying the /etc/hosts file."
+    echo "off"
+    echo "    Unblocks sites from your list by modifying the /etc/hosts file."
+    echo "-v"
+    echo "    Prints the version."
+    echo "-h"
+    echo "    Prints these instructions."
+    echo
+
+    exit
+}
+
 #   If called without arguments, exit.
 if [ $# -ne 1 ]; then
     echo 
@@ -110,6 +143,22 @@ else
 
         off)
             off ${blocked_sites[@]}
+        ;;
+
+        version)
+            version
+        ;;
+
+        -v)
+            version
+        ;;
+
+        help)
+            hlp
+        ;;
+
+        -h)
+            hlp
         ;;
     esac   
 fi
