@@ -11,38 +11,101 @@
 
 #   Constants
 #
-HOSTS="etc/hosts"
-BLOCKED_HOSTS="etc/hosts.blocked"
+hosts="/etc/hosts"
+hosts_backup="/etc/hosts.backup"
+blocked_hosts="/etc/hosts.blocked"
 
 
 #   Function
 #
 function on {
-    echo "Turning on blocking..."
+    echo
+    echo "It's time to GET SHIT DONE."
+    echo "    Blocking sites..."
+
+    # Make a backup of hosts file, if DNE.
+    if [ ! -e $hosts_backup ]; then
+        echo "    Making a backup of /etc/hosts/..."
+        cp $hosts $hosts_backup
+    fi
+
+    # Read from the array passed in, and add to /etc/hosts
+    for site in $*; do
+        echo "    "$site
+        line="127.0.0.1 $site"
+        grep $site $hosts > /dev/null; append=$?
+        if [ $append == 1 ]; then
+            echo -e $line >> $hosts
+        fi
+    done
+
+    # Exit.
     exit
 }
 
 function off {
-    echo "Turning off blocking..."
+    echo 
+    echo "Ok, relaxing times."
+    echo "    Unblocking sites..."
+
+    # Read from the array, and remove files from /etc/hosts
+    for site in $*; do
+        sed -i '' "/127.0.0.1 $host/d" $hosts
+    done
+
+    # Flush the cache.
+    flush
+    
+    # And, done.
     exit
 }
 
+function flush {
+    if [ `uname` == Darwin ]; then
+        echo "    Flushing cache..."
+        $(which dscacheutil) -flushcache
+    fi
+}
+
 #   If called without arguments, exit.
-if [ $# -ne 1 ]
-then
+if [ $# -ne 1 ]; then
     echo 
     echo "usage: gsd on      ... turns on blocking. 
        gsd off     ... turns off blocking."
    echo
    exit
+
 else
+    # Find all blocked hosts
+    if [ ! -e $blocked_hosts ]; then
+        echo "ERROR: The list of websites to block does not exist."
+        echo "    Make sure /etc/hosts.blocked is in same directory as /etc/hosts." >&1
+        exit 1
+    fi
+
+    blocked_sites=()
+
+    # Read all lines from our $blocked_hosts file
+    # Put into an array that we will pass to on() or off().
+    #   Ignore comments, obv.
+    while read line; do
+        if [ $line == \#* ]
+        then
+            continue
+        fi
+        blocked_sites+=($line)
+    done < $blocked_hosts
+
+
+    echo $blocked_sites
+
     case $1 in
         on)
-            on
+            on ${blocked_sites[@]}
         ;;
 
         off)
-            off
+            off ${blocked_sites[@]}
         ;;
     esac   
 fi

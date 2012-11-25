@@ -16,8 +16,8 @@ function install {
 }
 
 if [ $UID -ne 0 ]; then
-  echo "Use me with sudo!" >&2
-  exit 2
+    echo "usage: 'sudo install_gsd'" >&2
+    exit 2
 fi
 
 install
