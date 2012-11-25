@@ -116,6 +116,8 @@ if [ $# -ne 1 ]; then
     exit
 
 else
+
+    
     # Find all blocked hosts
     if [ ! -e $blocked_hosts ]; then
         echo "ERROR: The list of websites to block does not exist."
@@ -138,10 +140,20 @@ else
 
     case $1 in
         on)
+            # Make sure sudo is used.
+            if [ $UID -ne 0 ]; then
+                echo "usage: 'sudo gsd $1'" >&2
+                exit 2
+            fi
             on ${blocked_sites[@]}
         ;;
 
         off)
+            # Make sure sudo is used.
+            if [ $UID -ne 0 ]; then
+                echo "usage: 'sudo gsd $1'" >&2
+                exit 2
+            fi
             off ${blocked_sites[@]}
         ;;
 
