@@ -40,3 +40,10 @@ I'm still learning bash scripting, so this little exercise is thanks to the work
 * Bela Varga, https://coderwall.com/p/my4bqg
 
 Let me know if there are horrifying, horrifying errors.
+
+### License
+
+Copyright 2012, John Cockrell
+
+Licensed under [GNU General Public License 3.0](http://www.gnu.org/licenses/gpl.html)
+
