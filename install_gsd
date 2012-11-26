@@ -12,13 +12,14 @@ function install {
     mv blocked_sites /etc/hosts.blocked
 
     echo "Done."
+    echo "------------"
     echo
-    echo `gsd -h`
+    gsd -h
     exit
 }
 
 if [ $UID -ne 0 ]; then
-    echo "usage: 'sudo install_gsd'" >&2
+    echo "usage: 'sudo sh install_gsd'" >&2
     exit 2
 fi
 
