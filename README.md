@@ -6,23 +6,37 @@ Are you a web developer and use multiple browsers? Too much of a pain to coordin
 
 Use this handy script to route time-suck websites to local host while you're working, and then turn them back on later.
 
+
+### Compatibility (for now)
+
+Mac OSX 10.4+
+
+* Safari 6.0.x+
+* Chrome 21.x+
+
 ### Installing
 
-Works for OS X 10.4+
+Download zip.
 
-Download, then navigate to the downloaded folder using a terminal.
+Edit `blocked_sites` to add or remove your particular time-suck websites.
 
-Edit the `blocked_sites` file to add/remove time-suck websites.
+Run `sudo sh install_gsd`.
 
-Run `sudo sh install_gsd`
+### Using
 
-Super. Now run `sudo gsd on` to block those websites, and `sudo gsd off` to unblock them after you're done working.
+`sudo gsd on`
+    Blocks the websites on the `blocked_sites` list by routing them to localhost in etc/hosts
+
+`sudo gsd off`
+    Removes the sites on `blocked_sites` list from etc/hosts.
 
 Enjoy productivity.
 
-### H/T
+### Thank you
 
 I'm still learning bash scripting, so this little exercise is thanks to the work of :
 
-afgomez, https://gist.github.com/748896
-Bela Varga, https://coderwall.com/p/my4bqg
+* afgomez, https://gist.github.com/748896
+* Bela Varga, https://coderwall.com/p/my4bqg
+
+Let me know if there are horrifying, horrifying errors.
