@@ -32,7 +32,7 @@ blocked_hosts="/etc/hosts.blocked"
 function on {
     echo
     echo "It's time to Get Shit Done(tm)."
-    echo "    Blocking sites..."
+    echo
 
     # Make a backup of hosts file, if DNE.
     if [ ! -e $hosts_backup ]; then
@@ -42,6 +42,7 @@ function on {
     fi
 
     # Read from the array passed in, and add to /etc/hosts
+    echo "    Blocking:"
     for site in $*; do
         echo "    "$site
         line="127.0.0.1 $site"
@@ -80,6 +81,7 @@ function off {
 
 function flush {
     if [ `uname` == Darwin ]; then
+        echo
         echo "    Flushing cache..."
         $(which dscacheutil) -flushcache
     fi
@@ -116,12 +118,10 @@ if [ $# -ne 1 ]; then
     exit
 
 else
-
-    
     # Find all blocked hosts
     if [ ! -e $blocked_hosts ]; then
         echo "ERROR: The list of websites to block does not exist."
-        echo "    Make sure /etc/hosts.blocked is in same directory as /etc/hosts." >&1
+        echo "    Make sure there's a hosts.blocked file in /etc/." >&1
         exit 1
     fi
 
