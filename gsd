@@ -67,7 +67,7 @@ function off {
 
     # Read from the array, and remove files from /etc/hosts
     for site in $*; do
-        sed -i '' "/127.0.0.1 $host/d" $hosts
+        sed -i '' "/127.0.0.1 $site/d" $hosts
     done
 
     # Flush the cache.
