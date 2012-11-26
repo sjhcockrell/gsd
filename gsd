@@ -46,7 +46,7 @@ function on {
     for site in $*; do
         echo "    "$site
         line="127.0.0.1 $site"
-        grep $site $hosts > /dev/null; append=$?
+        grep " "$site $hosts > /dev/null; append=$?
         if [ $append == 1 ]; then
             echo $line >> $hosts
         fi
