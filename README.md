@@ -1,4 +1,4 @@
-# GSD, aka "Get sh\_t done script"
+# GSD, aka "Get shit done script"
 
 ### What it does
 
