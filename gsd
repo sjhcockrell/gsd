@@ -66,8 +66,10 @@ function off {
     echo "    Unblocking sites..."
 
     # Read from the array, and remove files from /etc/hosts
+    sed_i=(-i '')
+    [[ $(uname) == Linux ]] && sed_i=(-i)
     for site in $*; do
-        sed -i '' "/127.0.0.1 $site/d" $hosts
+        sed ${sed_i[@]} "/127.0.0.1 $site/d" $hosts
     done
 
     # Flush the cache.
