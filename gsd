@@ -109,6 +109,13 @@ function hlp {
     exit
 }
 
+function checkSudo {
+    if [ $UID -ne 0 ]; then
+        echo "usage: 'sudo gsd $1'" >&2
+        exit 2
+    fi   
+}
+
 #   If called without arguments, exit.
 if [ $# -ne 1 ]; then
     echo
@@ -130,6 +137,12 @@ else
     # Read all lines from our $blocked_hosts file
     # Put into an array that we will pass to on() or off().
     #   Ignore comments and blank lines, obv.
+
+    # This is a really goofy way to do it.
+    #
+    #   egrep -v '^(#|$)' $blocked_hosts | ...
+    #
+    # Would be a lot smarter.
     while read line; do
         first_char=`echo $line | cut -c1-1`
         if [ "$first_char" == "#" ];then
@@ -141,19 +154,13 @@ else
     case $1 in
         on)
             # Make sure sudo is used.
-            if [ $UID -ne 0 ]; then
-                echo "usage: 'sudo gsd $1'" >&2
-                exit 2
-            fi
+            checkSudo
             on ${blocked_sites[@]}
         ;;
 
         off)
             # Make sure sudo is used.
-            if [ $UID -ne 0 ]; then
-                echo "usage: 'sudo gsd $1'" >&2
-                exit 2
-            fi
+            checkSudo 
             off ${blocked_sites[@]}
         ;;
 
