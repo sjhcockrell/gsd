@@ -126,7 +126,7 @@ if [[ $# == 0 ]]; then
 
 else
     # Find all blocked hosts
-    if [ ! -e $blocked_hosts ]; then
+    if [ ! -f $blocked_hosts ]; then
         echo "ERROR: The list of websites to block does not exist."
         echo "    Make sure there's a hosts.blocked file in /etc/." >&1
         exit 1
