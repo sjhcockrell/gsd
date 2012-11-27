@@ -134,31 +134,8 @@ else
         exit 1
     fi
 
-    blocked_sites=()
-
-    # Read all lines from our $blocked_hosts file
-    # Put into an array that we will pass to on() or off().
-    #   Ignore comments and blank lines, obv.
-
-    # This is a really goofy way to do it.
-    #
-    #   egrep -v '^(#|$)' $blocked_hosts | ...
-    #
-    # Would be a lot smarter.
-    while read line; do
-        first_char=`echo $line | cut -c1-1`
-        if [ "$first_char" == "#" ];then
-            continue
-        fi
-        blocked_sites+=($line)
-
-        # Making it more restrictive: does it start with www.*?
-        if [[ $line == www\.* ]]; then
-            minus_www=`echo $line | cut -c5-${#line}`
-            blocked_sites+=($minus_www)
-        fi
-
-    done < $blocked_hosts
+    # Read all sites from our $blocked_hosts file and remove prefix www.
+    blocked_sites=($(sed -n '/^\w\+/p ; /^www\./ {s/^www\.//;p}' blocked_sites))
 
     case $1 in
         on)
