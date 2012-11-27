@@ -5,7 +5,7 @@
 function install {
     echo "Installing:"
 
-    echo "    Moving gsd to /usr/bin/..."
+    echo "    Copying gsd to /usr/bin/..."
     cp gsd /usr/bin/gsd
 
     echo "    Copying block list to /etc/hosts.blocked..."
