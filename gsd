@@ -2,8 +2,8 @@
 #
 #   gsd
 #   A simple script to help you get work done.
-#   
-#   
+#
+#
 #   on
 #       Turns on the blocking.
 #
@@ -61,7 +61,7 @@ function on {
 }
 
 function off {
-    echo 
+    echo
     echo "Ok, time to relax."
     echo "    Unblocking sites..."
 
@@ -72,10 +72,10 @@ function off {
 
     # Flush the cache.
     flush
-    
+
     # And, done.
     echo "    The internet is back in town."
-    echo 
+    echo
     exit
 }
 
@@ -95,7 +95,7 @@ function version {
 function hlp {
     echo
     echo "gsd, the get shit done script"
-    echo 
+    echo
     echo "on"
     echo "    Blocks a list of sites by modifying the /etc/hosts file."
     echo "off"
@@ -111,7 +111,7 @@ function hlp {
 
 #   If called without arguments, exit.
 if [ $# -ne 1 ]; then
-    echo 
+    echo
     echo "usage: gsd on      ... turns on blocking."
     echo "       gsd off     ... turns off blocking."
     echo
@@ -172,5 +172,5 @@ else
         -h)
             hlp
         ;;
-    esac   
+    esac
 fi
