@@ -149,18 +149,25 @@ else
             continue
         fi
         blocked_sites+=($line)
+
+        # Making it more restrictive: does it start with www.*?
+        if [[ $line == www\.* ]]; then
+            minus_www=`echo $line | cut -c5-${#line}`
+            blocked_sites+=($minus_www)
+        fi
+
     done < $blocked_hosts
 
     case $1 in
         on)
             # Make sure sudo is used.
-            checkSudo
+            checkSudo $1
             on ${blocked_sites[@]}
         ;;
 
         off)
             # Make sure sudo is used.
-            checkSudo 
+            checkSudo $1
             off ${blocked_sites[@]}
         ;;
 
