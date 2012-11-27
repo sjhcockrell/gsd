@@ -133,7 +133,7 @@ else
     fi
 
     # Read all sites from our $blocked_hosts file and remove prefix www.
-    blocked_sites=($(sed -n '/^\w\+/p ; /^www\./ {s/^www\.//;p}' $blocked_hosts))
+    blocked_sites=($(sed -n '/^[a-zA-Z0-9].*/p ; s/^www\.//p' $blocked_hosts))
 
     case $1 in
         on)
