@@ -23,8 +23,8 @@ VERSION=0.1
 
 
 hosts="/etc/hosts"
-hosts_backup="/etc/hosts.backup"
-blocked_hosts="/etc/hosts.blocked"
+hosts_backup="$hosts.backup"
+blocked_hosts="$hosts.blocked"
 
 
 #   Function
@@ -36,9 +36,9 @@ function on {
 
     # Make a backup of hosts file, if DNE.
     if [ ! -e $hosts_backup ]; then
-        echo "    Making a backup of /etc/hosts..."
+        echo "    Making a backup of $hosts..."
         cp $hosts $hosts_backup
-        echo "    Backup file is /etc/hosts.backup."
+        echo "    Backup file is $hosts_backup."
     fi
 
     # Read from the array passed in, and add to /etc/hosts
@@ -97,9 +97,9 @@ function hlp {
     echo "gsd, the get shit done script"
     echo
     echo "on"
-    echo "    Blocks a list of sites by modifying the /etc/hosts file."
+    echo "    Blocks a list of sites by modifying the $hosts file."
     echo "off"
-    echo "    Unblocks sites from your list by modifying the /etc/hosts file."
+    echo "    Unblocks sites from your list by modifying the $hosts file."
     echo "-v"
     echo "    Prints the version."
     echo "-h"
