@@ -80,7 +80,7 @@ function off {
 }
 
 function flush {
-    if [ `uname` == Darwin ]; then
+    if [ $(uname) == Darwin ]; then
         echo
         echo "    Flushing cache..."
         $(which dscacheutil) -flushcache
