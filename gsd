@@ -80,7 +80,7 @@ function off {
 }
 
 function flush {
-    if [ $(uname) == Darwin ]; then
+    if [[ $(uname) == Darwin ]]; then
         echo
         echo "    Flushing cache..."
         $(which dscacheutil) -flushcache
@@ -110,14 +110,14 @@ function hlp {
 }
 
 function checkSudo {
-    if [ $UID -ne 0 ]; then
+    if [[ $UID != 0 ]]; then
         echo "usage: 'sudo gsd $1'" >&2
         exit 2
     fi   
 }
 
 #   If called without arguments, exit.
-if [ $# -ne 1 ]; then
+if [[ $# == 0 ]]; then
     echo
     echo "usage: gsd on      ... turns on blocking."
     echo "       gsd off     ... turns off blocking."
