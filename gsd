@@ -45,10 +45,8 @@ function on {
     echo "    Blocking:"
     for site in $*; do
         echo "    "$site
-        line="127.0.0.1 $site"
-        grep " "$site $hosts > /dev/null; append=$?
-        if [ $append == 1 ]; then
-            echo $line >> $hosts
+        if ! grep " "$site $hosts > /dev/null; then
+            echo "127.0.0.1 $site" >> $hosts
         fi
     done
 
