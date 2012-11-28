@@ -22,9 +22,9 @@
 VERSION=0.1
 
 
-hosts="/etc/hosts"
-hosts_backup="$hosts.backup"
-blocked_hosts="$hosts.blocked"
+HOSTS="/etc/hosts"
+HOSTS_BACKUP="$HOSTS.backup"
+BLOCKED_HOSTS="$HOSTS.blocked"
 
 
 #   Function
@@ -35,18 +35,18 @@ function on {
     echo
 
     # Make a backup of hosts file, if DNE.
-    if [ ! -e $hosts_backup ]; then
-        echo "    Making a backup of $hosts..."
-        cp $hosts $hosts_backup
-        echo "    Backup file is $hosts_backup."
+    if [ ! -e $HOSTS_BACKUP ]; then
+        echo "    Making a backup of $HOSTS..."
+        cp $HOSTS $HOSTS_BACKUP
+        echo "    Backup file is $HOSTS_BACKUP."
     fi
 
     # Read from the array passed in, and add to /etc/hosts
     echo "    Blocking:"
     for site in $*; do
         echo "    "$site
-        if ! grep " "$site $hosts > /dev/null; then
-            echo "127.0.0.1 $site" >> $hosts
+        if ! grep " "$site $HOSTS > /dev/null; then
+            echo "127.0.0.1 $site" >> $HOSTS
         fi
     done
 
@@ -67,7 +67,7 @@ function off {
     sed_i='-i ""'
     [[ $(uname) == Linux ]] && sed_i='-i'
     for site in $*; do
-        sed $sed_i "/127.0.0.1 $site/d" $hosts
+        sed $sed_i "/127.0.0.1 $site/d" $HOSTS
     done
 
     # Flush the cache.
@@ -97,9 +97,9 @@ function hlp {
     echo "gsd, the get shit done script"
     echo
     echo "on"
-    echo "    Blocks a list of sites by modifying the $hosts file."
+    echo "    Blocks a list of sites by modifying the $HOSTS file."
     echo "off"
-    echo "    Unblocks sites from your list by modifying the $hosts file."
+    echo "    Unblocks sites from your list by modifying the $HOSTS file."
     echo "-v"
     echo "    Prints the version."
     echo "-h"
@@ -126,14 +126,14 @@ if [[ $# == 0 ]]; then
 
 else
     # Find all blocked hosts
-    if [ ! -f $blocked_hosts ]; then
+    if [ ! -f $BLOCKED_HOSTS ]; then 
         echo "ERROR: The list of websites to block does not exist."
         echo "    Make sure there's a hosts.blocked file in /etc/." >&1
         exit 1
     fi
 
-    # Read all sites from our $blocked_hosts file and remove prefix www.
-    blocked_sites=( $(sed -n '/^[a-zA-Z0-9].*/p ; s/^www\.//p' $blocked_hosts) )
+    # Read all sites from our $BLOCKED_HOSTS file and remove prefix www.
+    blocked_sites=( $(sed -n '/^[a-zA-Z0-9].*/p ; s/^www\.//p' $BLOCKED_HOSTS) )
 
     case $1 in
         on)
@@ -148,19 +148,11 @@ else
             off ${blocked_sites[@]}
         ;;
 
-        version)
+        version|-v)
             version
         ;;
 
-        -v)
-            version
-        ;;
-
-        help)
-            hlp
-        ;;
-
-        -h)
+        help|-h)
             hlp
         ;;
     esac
