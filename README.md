@@ -7,12 +7,9 @@ Are you a web developer and use multiple browsers? Too much of a pain to coordin
 Use this handy script to route time-suck websites to local host while you're working, and then turn them back on later.
 
 
-### Compatibility (for now)
+### Compatibility
 
-Mac OSX 10.4+
-
-* Safari 6.0.x+
-* Chrome 21.x+
+Linux, Mac OSX 10.4+ (Safari 6.0.x+, Chrome 21.x+, Firefox 16+, Opera 12+)
 
 ### Installing
 
