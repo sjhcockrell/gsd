@@ -19,9 +19,7 @@
 #   Constants
 #
 
-VERSION=0.1
-
-
+VERSION=0.1.4
 HOSTS="/etc/hosts"
 HOSTS_BACKUP="$HOSTS.backup"
 BLOCKED_HOSTS="$HOSTS.blocked"
